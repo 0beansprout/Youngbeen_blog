@@ -8,25 +8,24 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 07 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Youngbeen&#39;s Biograph</title>
+      <title>Youngbeen&#39;s resume</title>
       <link>/2022/03/07/youngbeen-s-biograph/</link>
       <pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>/2022/03/07/youngbeen-s-biograph/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+      <description>ResumeThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
 You can embed an R code chunk like this:
 </description>
     </item>
     
     <item>
-      <title>Youngbeen&#39;s Blog</title>
-      <link>/2022/03/05/youngbeens-blog/</link>
-      <pubDate>Sat, 05 Mar 2022 21:13:14 -0500</pubDate>
+      <title>IS 407 HW 01</title>
+      <link>/2022/02/01/is-407-hw-01/</link>
+      <pubDate>Tue, 01 Feb 2022 21:13:14 -0500</pubDate>
       
-      <guid>/2022/03/05/youngbeens-blog/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.</description>
+      <guid>/2022/02/01/is-407-hw-01/</guid>
+      <description>HW 01 - Global plastic wasteThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+Plastic pollution is a major and growing problem, negatively affecting oceans and wildlife health.Our World in Data has a lot of great data at various levels including globally, per country, and over time.</description>
     </item>
     
   </channel>

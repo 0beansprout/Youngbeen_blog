@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.93.0" />
+
+
+<title>IS 407 HW 01 - A Hugo website</title>
+<meta property="og:title" content="IS 407 HW 01 - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">9 min read</span>
+    
+
+    <h1 class="article-title">IS 407 HW 01</h1>
+
+    
+    <span class="article-date">2022-02-01</span>
+    
+
+    <div class="article-content">
+      
+<script src="/2022/02/01/is-407-hw-01/index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="hw-01---global-plastic-waste" class="section level1">
+<h1>HW 01 - Global plastic waste</h1>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>Plastic pollution is a major and growing problem, negatively affecting oceans and wildlife health.
+<a href="https://ourworldindata.org/plastic-pollution">Our World in Data</a> has a lot of great data at various levels including globally, per country, and over time.
+For this individual homework we focus on data from 2010.</p>
+<p>Additionally, National Geographic ran a data visualization communication contest on plastic waste as seen <a href="https://www.nationalgeographic.org/funding-opportunities/innovation-challenges/plastic/dataviz/">here</a>.</p>
+</div>
+<div id="learning-goals" class="section level1">
+<h1>Learning goals</h1>
+<ul>
+<li>Visualizing numerical and categorical data and interpreting visualizations</li>
+<li>Recreating visualizations</li>
+<li>Getting more practice using with R, RStudio, Git, and GitHub</li>
+</ul>
+</div>
+<div id="getting-started" class="section level1">
+<h1>Getting started</h1>
+<p>Go to the course GitHub organization and locate your assignment repo, which should be named <code>hw1-plastic-waste-YOUR_GITHUB_USERNAME</code>.</p>
+<p>Grab the URL of the repo, and clone it in RStudio.
+Refer to <a href="https://happygitwithr.com/rstudio-git-github.html">Happy Git and GitHub for the useR</a> if you would like to see step-by-step instructions for cloning a repo into an RStudio project.</p>
+<p>First, open the R Markdown document <code>hw1.Rmd</code> and Knit it.
+Make sure it compiles without errors.
+The output will be in HTML <code>.html</code> file with the same name.</p>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<p>We’ll use the <strong>tidyverse</strong> package for this analysis.
+Run the following code in the Console to load this package.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>The dataset for this assignment can be found as a csv file in the <code>data</code> folder of your repository.
+You can read it in using the following.</p>
+<pre class="r"><code>plastic_waste &lt;- read_csv(&quot;data/plastic-waste.csv&quot;)</code></pre>
+<p>The variable descriptions are as follows:</p>
+<ul>
+<li><code>code</code>: 3 Letter country code</li>
+<li><code>entity</code>: Country name</li>
+<li><code>continent</code>: Continent name</li>
+<li><code>year</code>: Year</li>
+<li><code>gdp_per_cap</code>: GDP per capita constant 2011 international $, rate</li>
+<li><code>plastic_waste_per_cap</code>: Amount of plastic waste per capita in kg/day</li>
+<li><code>mismanaged_plastic_waste_per_cap</code>: Amount of mismanaged plastic waste per capita in kg/day</li>
+<li><code>mismanaged_plastic_waste</code>: Tonnes of mismanaged plastic waste</li>
+<li><code>coastal_pop</code>: Number of individuals living on/near coast</li>
+<li><code>total_pop</code>: Total population according to Gapminder</li>
+</ul>
+</div>
+</div>
+<div id="warm-up" class="section level1">
+<h1>Warm up</h1>
+<ul>
+<li>Recall that RStudio is divided into four panes. Without looking, can you name them all and briefly describe their purpose?</li>
+<li>Verify that the dataset has loaded into the Environment. How many observations are in the dataset? Clicking on the dataset in the Environment will allow you to inspect it more carefully. Alternatively, you can type <code>View(plastic_waste)</code> into the Console to do this.</li>
+</ul>
+<p><strong>Hint:</strong> If you’re not sure, run the command <code>?NA</code> which will lead you to the documentation.</p>
+<ul>
+<li>Have a quick look at the data and notice that there are cells taking the value <code>NA</code> – what does this mean?</li>
+</ul>
+</div>
+<div id="exercises" class="section level1">
+<h1>Exercises</h1>
+<p>Let’s start by taking a look at the distribution of plastic waste per capita in 2010.</p>
+<pre class="r"><code>ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_histogram(binwidth = 0.2)
+## Warning: Removed 51 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/plastic_waste_per_cap-hist-1.png" width="672" /></p>
+<p>One country stands out as an unusual observation at the top of the distribution.
+One way of identifying this country is to filter the data for countries where plastic waste per capita is greater than 3.5 kg/person.</p>
+<pre class="r"><code>plastic_waste %&gt;%
+  filter(plastic_waste_per_cap &gt; 3.5)
+## # A tibble: 1 x 10
+##   code  entity   continent   year gdp_per_cap plastic_waste_p~ mismanaged_plast~
+##   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+## 1 TTO   Trinida~ North Ame~  2010      31261.              3.6              0.19
+## # ... with 3 more variables: mismanaged_plastic_waste &lt;dbl&gt;, coastal_pop &lt;dbl&gt;,
+## #   total_pop &lt;dbl&gt;</code></pre>
+<p>Did you expect this result?
+You might consider doing some research on Trinidad and Tobago to see why plastic waste per capita is so high there, or whether this is a data error.</p>
+<p>Q1. Plot, using histograms, the distribution of plastic waste per capita faceted by continent. What can you say about how the continents compare to each other in terms of their plastic waste per capita?</p>
+<p><strong>NOTE:</strong> From this point onwards the plots and the output of the code are not displayed in the homework instructions, but you can and should the code and view the results yourself.</p>
+<pre class="r"><code># Your code below:
+ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_histogram(binwidth = 0.2) + 
+  facet_wrap(~continent)
+## Warning: Removed 51 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>*As shown in the histogram, although each graph seems similar, there is relatively difference. North America continent can be seen wasting a lot of plastic per capita, while Oceania and South American continent waste relatively small.</p>
+<p>Another way of visualizing numerical data is using density plots.</p>
+<pre class="r"><code>ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_density()
+## Warning: Removed 51 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/plastic_waste_per_cap-dens-1.png" width="672" /></p>
+<p>And compare distributions across continents by coloring density curves by continent.</p>
+<pre class="r"><code>ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = plastic_waste_per_cap,
+    color = continent
+  )
+) +
+  geom_density()
+## Warning: Removed 51 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/plastic_waste_per_cap-dens-color-1.png" width="672" /></p>
+<p>The resulting plot may be a little difficult to read, so let’s also fill the curves in with colors as well.</p>
+<pre class="r"><code>ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = plastic_waste_per_cap,
+    color = continent,
+    fill = continent
+  )
+) +
+  geom_density()
+## Warning: Removed 51 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/plastic_waste_per_cap-dens-color-fill-1.png" width="672" /></p>
+<p>The overlapping colors make it difficult to tell what’s happening with the distributions in continents plotted first, and hence covered by continents plotted over them.
+We can change the transparency level of the fill color to help with this.
+The <code>alpha</code> argument takes values between 0 and 1: 0 is completely transparent and 1 is completely opaque.
+There is no way to tell what value will work best, so you just need to try a few.</p>
+<pre class="r"><code>ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = plastic_waste_per_cap,
+    color = continent,
+    fill = continent
+  )
+) +
+  geom_density(alpha = 0.7)
+## Warning: Removed 51 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/plastic_waste_per_cap-dens-color-fill-alpha-1.png" width="672" /></p>
+<p>This still doesn’t look great…</p>
+<p>Q2. Recreate the density plots above using a different (lower) alpha level that works better for displaying the density curves for all continents.</p>
+<pre class="r"><code># Your code below:
+ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = plastic_waste_per_cap,
+    color = continent,
+    fill = continent
+  )
+) +
+  geom_density(alpha = 0.2)
+## Warning: Removed 51 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>*After lowering the transparency using alpha, we can see the curve graphs of all continents than before.</p>
+<p>Q3. Describe why we defined the <code>color</code> and <code>fill</code> of the curves by mapping aesthetics of the plot but we defined the <code>alpha</code> level as a characteristic of the plotting geom.</p>
+<p>[Since we used <code>color</code> and <code>fill</code> using mapping for specific continent variables. But, <code>alpha</code> for transparency changes the setting of the entire graphs, so we defined it separately as a characteristic of the plotting geom.]</p>
+<p>🧶 ✅ ⬆️ <em>Now is a good time to knit your document and commit and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.</em></p>
+<p>And yet another way to visualize this relationship is using side-by-side box plots.</p>
+<pre class="r"><code>ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = continent,
+    y = plastic_waste_per_cap
+  )
+) +
+  geom_boxplot()
+## Warning: Removed 51 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/plastic_waste_per_cap-box-1.png" width="672" /></p>
+<p>Q4. Convert your side-by-side box plots from the previous task to <a href="http://ggplot2.tidyverse.org/reference/geom_violin.html">violin plots</a>. What do the violin plots reveal that box plots do not? What features are apparent in the box plots but not in the violin plots?</p>
+<p><strong>Remember:</strong> We use <code>geom_point()</code> to make scatterplots.</p>
+<pre class="r"><code># Your code below:
+ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = continent,
+    y = plastic_waste_per_cap
+  )
+) +
+  geom_violin()
+## Warning: Removed 51 rows containing non-finite values (stat_ydensity).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>*The violin plot shows a continuous distribution that was not seen in the box plot. And you can easy to see density well. On the other hand, the box plot can clearly show the outliers and medians, ranges and variabilities effectively.</p>
+<p>Q5. Visualize the relationship between plastic waste per capita and mismanaged plastic waste per capita using a scatterplot.
+Describe the relationship.</p>
+<pre class="r"><code># Your R code below:
+ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = mismanaged_plastic_waste_per_cap,
+    y = plastic_waste_per_cap
+  )
+) +
+  geom_point()
+## Warning: Removed 51 rows containing missing values (geom_point).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>*The relationship between waste of plastic per capita and mismanaged plastic waste per capita shows a similar distribution, as shown in the Scatter plot.</p>
+<p>Q6. Color the points in the scatterplot by continent.
+Does there seem to be any clear distinctions between continents with respect to how plastic waste per capita and mismanaged plastic waste per capita are associated?</p>
+<pre class="r"><code># Your R code below:
+ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = mismanaged_plastic_waste_per_cap,
+    y = plastic_waste_per_cap, color = continent
+  )
+) +
+  geom_point()
+## Warning: Removed 51 rows containing missing values (geom_point).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>*There is nothing particularly distinct, but plastics waste per capita and mismanaged are shown similar distributions.</p>
+<p>Q7. Visualize the relationship between plastic waste per capita and total population as well as plastic waste per capita and coastal population.
+You will need to make two separate plots.
+Do either of these pairs of variables appear to be more strongly linearly associated?</p>
+<pre class="r"><code># Your R code for the first plot below:
+ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = plastic_waste_per_cap,
+    y = total_pop
+  )
+) +
+  geom_point()
+## Warning: Removed 61 rows containing missing values (geom_point).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code># Your R code for the second plot below:
+ggplot(
+  data = plastic_waste,
+  mapping = aes(
+    x = plastic_waste_per_cap,
+    y = coastal_pop
+  )
+) +
+  geom_point()
+## Warning: Removed 51 rows containing missing values (geom_point).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>*The linear association between the two graphs is almost similar, but shows more scatter distribution in the relationship between plastic waste per capita and coastal population.</p>
+<p>🧶 ✅ ⬆️ <em>Now is another good time to knit your document and commit and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.</em></p>
+<p>Q8. Recreate the following plot, and interpret what you see in context of the data.</p>
+<p><strong>Hint:</strong> The x-axis is a calculated variable. One country with plastic waste per capita over 3 kg/day has been filtered out. And the data are not only represented with points on the plot but also a smooth curve. The term “smooth” should help you <a href="https://ggplot2.tidyverse.org/reference/index.html#section-geoms">pick which geom to use</a>.</p>
+<div class="figure">
+<img src="img/smoothed.png" alt="" />
+<p class="caption">Smoothed graph.</p>
+</div>
+<pre class="r"><code># Your code below:
+plastic_waste_recreate &lt;- plastic_waste %&gt;%
+  filter(plastic_waste_per_cap &lt; 3)
+ggplot(
+  data = plastic_waste_recreate
+  )+
+  geom_point(
+    mapping = aes(
+      x = coastal_pop / total_pop,
+      y = plastic_waste_per_cap, color = continent
+      )
+    )+ 
+  geom_smooth(
+    mapping = aes(
+      x = coastal_pop / total_pop,
+      y = plastic_waste_per_cap
+      )
+    )+
+  labs(
+    title = &quot;Plastic waste vs. Coastal population proportion&quot;,
+    subtitle = &quot;by continent&quot;,
+    x = &quot;Coastal population proportion (coastal_pop / total_pop)&quot;,
+    y = &quot;Plastic waste per capita&quot;
+  )
+## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;
+## Warning: Removed 10 rows containing non-finite values (stat_smooth).
+## Warning: Removed 10 rows containing missing values (geom_point).</code></pre>
+<p><img src="/2022/02/01/is-407-hw-01/index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>*As shown in the graph, it is a linear graph showing the correlation between the coastal population/total population and plastic waste per capita.</p>
+<p>🧶 ✅ ⬆️ Knit, <em>commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you’re happy with the final state of your work.</em></p>
+<p>Once you’re done, check to make sure your latest changes are on GitHub and that you have a green indicator for the automated check for your R Markdown document knitting.</p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
